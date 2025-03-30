@@ -1,8 +1,17 @@
 package router
 
-import "github.com/labstack/echo/v4"
+import (
+	"github.com/labstack/echo/v4"
+	"github.com/matthewyuh246/socallogin/internal/controller"
+)
 
-func NewRouter() *echo.Echo {
+func NewRouter(uc controller.IUserController) *echo.Echo {
 	e := echo.New()
+
+	e.GET("/auth", uc.Authentication)
+	e.POST("/signup", uc.SignUp)
+	e.POST("/login", uc.LogIn)
+	e.POST("/logout", uc.LogOut)
+
 	return e
 }
