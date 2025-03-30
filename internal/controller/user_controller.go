@@ -40,7 +40,7 @@ var (
 )
 
 func init() {
-	if err := godotenv.Load(); err != nil {
+	if err := godotenv.Load("../../.env"); err != nil {
 		log.Fatalf("Error loading .env file: %v", err)
 	}
 
@@ -48,7 +48,7 @@ func init() {
 	clientSecret = os.Getenv("GOOGLE_CLIENT_SECRET")
 
 	var err error
-	provider, err = oidc.NewProvider(context.Background(), "http://accounts.google.com")
+	provider, err = oidc.NewProvider(context.Background(), "https://accounts.google.com")
 	if err != nil {
 		log.Fatalf("failed to get provider: %v", err)
 	}
@@ -89,9 +89,9 @@ func (uc *userController) SignUp(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, "Faile to get user profile: "+err.Error())
 	}
 
-	if domain, ok := profile["hd"].(string); !ok || domain != "g.kogakuin.jp" {
-		return c.JSON(http.StatusUnauthorized, "Unauthorized domain")
-	}
+	// if domain, ok := profile["hd"].(string); !ok || domain != "g.kogakuin.jp" {
+	// 	return c.JSON(http.StatusUnauthorized, "Unauthorized domain")
+	// }
 
 	user := domain.User{}
 	if err := c.Bind(&user); err != nil {
