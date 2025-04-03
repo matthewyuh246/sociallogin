@@ -12,7 +12,7 @@ func NewRouter(uc controller.IUserController) *echo.Echo {
 	e := echo.New()
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"http://your-frontend-domain.com"},
+		AllowOrigins:     []string{"http://localhost:5173"},
 		AllowMethods:     []string{http.MethodGet, http.MethodPost, http.MethodOptions},
 		AllowCredentials: true,
 	}))
